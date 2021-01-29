@@ -17,23 +17,23 @@ Nós não definimos um tempo limite para resolução deste teste, o que vale par
 
 ## As Instruções 
 
-O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native.
+O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native. Os dados poderão ser mokados sem mais problemas.
 
-Principais telas a serem desenvolvidas
+### Principais telas a serem desenvolvidas
 
 - Lista de produtos
--- Modo lista e modo card
--- Filtros
-
+    - Modo lista e modo cards
+    - Filtros
 - Página de Produto
--- Fotos do Produto
--- Descrição
--- Avaliações 
+    - Fotos do Produto
+    - Descrição
+    - Avaliações 
 - Página de Carrinho / Checkout
 - Página de pagamento (cadastro de cartão)
 - Página de confirmação da compra
 
-Funções
+### Funções
+
 - Adicionar / Remover os produtos no carrinho
 
 
