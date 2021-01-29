@@ -10,7 +10,7 @@ Teste para candidatos à vaga de Desenvolvedor React e/ou React Native Júnior, 
 
 Você deverá criar um fork deste projeto, e desenvolver em cima do seu fork. Use o README principal do seu repositório para nos contar como foi resolver seu teste, as decisões tomadas, como você organizou e separou seu código, e principalmente as instruções de como rodar seu projeto, afinal a primeira pessoa que irá rodar seu projeto será um programador de nossa equipe, e se você conseguir explicar para ele como fazer isso, você já começou bem!
 
-Nós não definimos um tempo limite para resolução deste teste, o que vale para nós e o resultado final e a evolução da criação do projeto até se atingir este resultado, mas acreditamos que este desafio pode ser resolvido em cerca de 16 horas de codificação.
+Nós não definimos um tempo limite para resolução deste teste, o que vale para nós e o resultado final e a evolução da criação do projeto até se atingir este resultado, mas acreditamos que este desafio pode ser resolvido em cerca de 24 horas de codificação.
 
 **Para iniciar, faça um fork deste projeto e nos avise em carreiras@rockapps.com.br com o título VAGA REACT.**
 
@@ -34,6 +34,7 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 
 ### Funções
 
+- Navegar entre produtos através de filtros
 - Adicionar / Remover os produtos no carrinho
 
 
@@ -42,7 +43,7 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 - Código limpo
 - Reutilização de componentes visuais
 - Hooks
-- Requisições RESTFul
+- Requisições RESTFul (se aplicável)
 - Histórico de commits do git
 - As instruções de como rodar o projeto
 - Organização, semântica, estrutura, legibilidade, manutenibilidade do seu código
@@ -54,8 +55,9 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 - Testes unitários
 - Interface limpa e intuitiva
 - Foco na experiência e jornada do usuário (loading, modais, exibição de lista vazia (sem resultados), tooltips)
-- Criação de novos componentes
+- Reutilização novos componentes
 - Gerenciamento de estado (Redux)
+- Requisições RESTFul (Axios)
 
 #### O que seria incrível
 
@@ -78,19 +80,23 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 
 Esperamos que você faça uso das principais tecnologias embarcadas no React e/ou React Native. Use sua criatividade e demonstre suas competências! Lembre-se que cada item abaixo poderá avaliado conforme seu nível de experiência.
 
-- Hook,
-- Notificações,
-- Animações,
-- Testes Unitários,
-- Testes Funcionais.
+- Expo
+- React Router (ou similar)
+- Axios
+- Hooks
+- Push Notifications
+- Toasts
+- Select Pickers, Date Pickers, Input Masks
+- Animações
+- Testes Unitários
+- Testes Funcionais
  
  ## Processo Principal
  
- 1. Usuário deverá se autenticar
- 1. Usuário devera troca a foto de perfil
+ 1. Usuário deverá se autenticar (ou se cadastrar)
+ 1. Usuário devera trocas a foto de perfil
  1. Usuário deverá incluir um item no carrinho
  1. Usuário deverá incluir outro item no carrinho
  1. Usuário deverá remover o primeiro item do carrinho
- 1. Usuário deverá finalizar o carrinho (trocar o status para Em Checkout)
- 1. Envio de notificações por e-mail através de filas (ao finalizar o carrinho)
+ 1. Usuário deverá finalizar o carrinho e confirmar a compra do pedido
  
