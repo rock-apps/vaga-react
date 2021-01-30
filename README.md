@@ -17,7 +17,7 @@ Nós não definimos um tempo limite para resolução deste teste, o que vale par
 
 ## As Instruções 
 
-O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native. Os dados poderão ser mokados sem mais problemas.
+O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native. Os dados poderão ser mockados sem mais problemas.
 
 ### Principais telas a serem desenvolvidas
 
