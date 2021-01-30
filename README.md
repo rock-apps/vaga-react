@@ -12,7 +12,9 @@ Você deverá criar um fork deste projeto, e desenvolver em cima do seu fork. Us
 
 Nós não definimos um tempo limite para resolução deste teste, o que vale para nós e o resultado final e a evolução da criação do projeto até se atingir este resultado, mas acreditamos que este desafio pode ser resolvido em cerca de 24 horas de codificação.
 
-**Para iniciar, faça um fork deste projeto e nos avise em carreiras@rockapps.com.br com o título VAGA REACT.**
+**Para iniciar, faça um fork deste projeto.**
+
+Em seguida, é **fundamental** o preenchimento do formulário https://link.rockapps.com.br/vaga-dev-react. Demora 5 minutinhos! Se necessário, entre em contato com a gente em carreiras@rockapps.com.br.
 
 
 ## As Instruções 
