@@ -19,7 +19,7 @@ Em seguida, é **fundamental** o preenchimento do formulário https://link.rocka
 
 ## As Instruções 
 
-O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native. Os dados poderão ser mockados sem mais problemas.
+O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando o framework React ou React Native. Os dados deverão ser mockados. Fique à vontade para utilizar boilerplates e outras bibliotecas disponíveis (Expo, CRA, Bootstrap, Material, etc).
 
 ### Principais telas a serem desenvolvidas
 
@@ -34,11 +34,15 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 - Página de pagamento (cadastro de cartão)
 - Página de confirmação da compra
 
-### Funções
 
-- Navegar entre produtos através de filtros
-- Adicionar / Remover os produtos no carrinho
-
+ ### Processo Principal
+ 
+ 1. Usuário deverá se autenticar (ou se cadastrar)
+ 1. Usuário devera trocas a foto de perfil
+ 1. Usuário deverá incluir um item no carrinho
+ 1. Usuário deverá incluir outro item no carrinho
+ 1. Usuário deverá remover o primeiro item do carrinho
+ 1. Usuário deverá finalizar o carrinho e confirmar a compra do pedido
 
 #### O que queremos que você demonstre
 
@@ -64,13 +68,12 @@ O desafio consiste na implementação de um e-Commerce Web ou Mobile utilizando 
 #### O que seria incrível
 
 - Ejetar o Expo e rodar a partir do xCode e do Android Studio
-- Testes de aceitação
-- SEO na página do produto (os dados estão nas requisições)
+- Testes e2e
+- SEO na página do produto
 - Animações (Lootie e/ou CSS)
 - Autenticação (token JWT) e rotas protegidas
 - Sockets
 - Publicação no Firebase ou similar
-- Aplicação de animações em css quando possível e tome cuidado com a performance da sua animação :)
 - Ver o código rodando live (Bucket estático S3, Heroku, Firebase Hosting)
 
 #### O que nós não gostaríamos
@@ -92,13 +95,4 @@ Esperamos que você faça uso das principais tecnologias embarcadas no React e/o
 - Animações
 - Testes Unitários
 - Testes Funcionais
- 
- ## Processo Principal
- 
- 1. Usuário deverá se autenticar (ou se cadastrar)
- 1. Usuário devera trocas a foto de perfil
- 1. Usuário deverá incluir um item no carrinho
- 1. Usuário deverá incluir outro item no carrinho
- 1. Usuário deverá remover o primeiro item do carrinho
- 1. Usuário deverá finalizar o carrinho e confirmar a compra do pedido
  
