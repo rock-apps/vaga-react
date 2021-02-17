@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import products from './controllers/products';
 
 class App {
   public express: express.Application;
@@ -16,7 +17,9 @@ class App {
     this.express.use(cors());
   }
 
-  private routes(): void {}
+  private routes(): void {
+    this.express.get('/', products.index);
+  }
 }
 
 export default new App().express;
