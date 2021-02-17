@@ -19,6 +19,7 @@ class App {
 
   private routes(): void {
     this.express.get('/', products.index);
+    this.express.get('/categories', products.categories);
   }
 }
 
