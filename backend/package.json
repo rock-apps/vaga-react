@@ -1,0 +1,22 @@
+{
+  "name": "store-app",
+  "version": "1.0.0",
+  "description": "A store-app with paypal",
+  "main": "index.js",
+  "repository": "https://github.com/Nadno/vaga-react",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
+  },
+  "author": "Nadno",
+  "license": "MIT",
+  "devDependencies": {
+    "sucrase": "^3.17.1",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.1.5"
+  },
+  "dependencies": {
+    "knex": "^0.21.17",
+    "sqlite3": "^5.0.2"
+  }
+}
