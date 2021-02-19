@@ -50,6 +50,41 @@ class Order {
       token: order.result.id,
     });
   }
+
+  public async capture(req: Request, res: Response) {
+    const { orderID, authorizationID } = req.body;
+    if (!orderID) return res.sendStatus(400);
+
+    const request = new paypal.orders.OrdersGetRequest(orderID);
+
+    let order, capture;
+    try {
+      order = await client.execute(request);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+      throw err;
+    }
+
+    res.json({
+      order: order.result,
+      capture: capture.result,
+    });
+
+    try {
+      {
+        const request = new paypal.payments.AuthorizationsCaptureRequest(
+          authorizationID
+        );
+        request.requestBody({});
+
+        capture = await client.execute(request);
+        const captureID = capture.result.id;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 export default new Order();
