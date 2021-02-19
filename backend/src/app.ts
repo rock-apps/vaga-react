@@ -29,6 +29,7 @@ class App {
     express.post('/order/capture', order.capture);
 
     express.post('/user/sign-up', user.signUp);
+    express.post('/user/sign-in', user.signIn);
   }
 }
 
