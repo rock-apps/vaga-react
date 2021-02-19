@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import product from './controllers/product';
 import order from './controllers/order';
+import user from './controllers/user';
 
 class App {
   public express: express.Application;
@@ -19,10 +20,15 @@ class App {
   }
 
   private routes(): void {
-    this.express.get('/products', product.index);
-    this.express.get('/products/categories', product.categories);
-    this.express.post('/order/create', order.create);
-    this.express.post('/order/capture', order.capture);
+    const { express } = this;
+
+    express.get('/products', product.index);
+    express.get('/products/categories', product.categories);
+
+    express.post('/order/create', order.create);
+    express.post('/order/capture', order.capture);
+
+    express.post('/user/sign-up', user.signUp);
   }
 }
 
