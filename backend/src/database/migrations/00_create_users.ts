@@ -5,7 +5,10 @@ export async function up(knex: Knex) {
     table.increments('id').primary();
     table.string('email').notNullable();
     table.string('password').notNullable();
-    table.string('avatar').notNullable();
+    table.string('address').notNullable();
+    table.string('name').notNullable();
+    table.string('tel');
+    table.string('avatar');
   })
 }
 
