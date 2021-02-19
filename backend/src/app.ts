@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import products from './controllers/products';
+import product from './controllers/product';
+import order from './controllers/order';
 
 class App {
   public express: express.Application;
@@ -18,8 +19,8 @@ class App {
   }
 
   private routes(): void {
-    this.express.get('/', products.index);
-    this.express.get('/categories', products.categories);
+    this.express.get('/products', product.index);
+    this.express.get('/products/categories', product.categories);
   }
 }
 
