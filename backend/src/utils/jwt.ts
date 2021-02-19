@@ -17,3 +17,8 @@ export const generateJwt = (payload: Payload) =>
   JWT.sign(payload, tokenPrivateKey, options);
 export const generateRefreshJwt = (payload: Payload) =>
   JWT.sign(payload, refreshTokenPrivateKey, refreshOptions);
+
+export const getTokenFromHeaders = (headers: Headers) => {
+  const token = headers['authorization'];
+  return token ? token.slice(7, token.length) : null;
+}
