@@ -7,7 +7,6 @@ import { generateJwt, generateRefreshJwt } from '../utils/jwt';
 const STATUS_CODE_OK = 200;
 const STATUS_CODE_CREATED = 201;
 const STATUS_CODE_BAD_REQUEST = 400;
-const STATUS_CODE_UNAUTHORIZED = 401;
 const STATUS_CODE_SERVER_ERROR = 500;
 
 class User {
@@ -40,10 +39,12 @@ class User {
       const refreshToken = generateRefreshJwt({ id: newAccountId });
 
       res.status(STATUS_CODE_CREATED).json({
-        email,
+        account: {
+          email,
+          id: newAccountId,
+        },
         token,
         refreshToken,
-        id: newAccountId,
       });
     } catch (err) {
       res.sendStatus(STATUS_CODE_SERVER_ERROR);
@@ -53,21 +54,30 @@ class User {
   async signIn(req: Request, res: Response) {
     const { email, password } = req.body;
 
-    const [account] = await db('users')
-      .select('*')
-      .where('users.email', '=', email);
+    try {
+      const [account] = await db('users')
+        .select('*')
+        .where('users.email', '=', email);
 
-    if (!account) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
+      if (!account) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
 
-    const match = bcrypt.compareSync(password, account.password);
-    if (!match) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
+      const match = bcrypt.compareSync(password, account.password);
+      if (!match) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
 
-    res.status(STATUS_CODE_OK).json({
-      account: {
-        id: account.id,
-        email: account.email,
-      },
-    });
+      const token = generateJwt({ id: account.id });
+      const refreshToken = generateRefreshJwt({ id: account.id });
+
+      res.status(STATUS_CODE_OK).json({
+        account: {
+          id: account.id,
+          email: account.email,
+        },
+        token,
+        refreshToken,
+      });
+    } catch (err) {
+      res.sendStatus(STATUS_CODE_SERVER_ERROR);
+    }
   }
 }
 
