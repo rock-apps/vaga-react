@@ -2,6 +2,7 @@ import db from '../database/connection';
 
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import { generateJwt, generateRefreshJwt } from '../utils/jwt';
 
 const STATUS_CODE_OK = 200;
 const STATUS_CODE_CREATED = 201;
@@ -23,18 +24,30 @@ class User {
         .json({ message: 'Endereço de email já cadastrado!' });
     }
 
-    const hash = bcrypt.hashSync(password, 10);
+    try {
+      const hash = bcrypt.hashSync(password, 10);
 
-    await db('users').insert({
-      name,
-      tel,
-      email,
-      password: hash,
-      avatar,
-      address,
-    });
+      const [newAccountId] = await db('users').insert({
+        name,
+        tel,
+        email,
+        password: hash,
+        avatar,
+        address,
+      });
 
-    return res.sendStatus(STATUS_CODE_CREATED);
+      const token = generateJwt({ id: newAccountId });
+      const refreshToken = generateRefreshJwt({ id: newAccountId });
+
+      res.status(STATUS_CODE_CREATED).json({
+        email,
+        token,
+        refreshToken,
+        id: newAccountId,
+      });
+    } catch (err) {
+      res.sendStatus(STATUS_CODE_SERVER_ERROR);
+    }
   }
 
   async signIn(req: Request, res: Response) {
@@ -43,9 +56,9 @@ class User {
     const [account] = await db('users')
       .select('*')
       .where('users.email', '=', email);
-    
+
     if (!account) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
-    
+
     const match = bcrypt.compareSync(password, account.password);
     if (!match) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
 
@@ -53,8 +66,8 @@ class User {
       account: {
         id: account.id,
         email: account.email,
-      }
-    })
+      },
+    });
   }
 }
 
