@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+import { IncomingHttpHeaders } from 'http';
 import JWT from 'jsonwebtoken';
 
 const tokenPrivateKey = process.env.JWT_TOKEN_PRIVATE_KEY;
@@ -21,7 +22,7 @@ export const generateRefreshJwt = (payload: Payload) =>
 export const verifyJwt = (token: string) => JWT.verify(token, tokenPrivateKey);
 export const verifyRefreshJwt = (token: string) => JWT.verify(token, refreshTokenPrivateKey);
 
-export const getTokenFromHeaders = (headers: Headers) => {
+export const getTokenFromHeaders = (headers: IncomingHttpHeaders) => {
   const token = headers['authorization'];
   return token ? token.slice(7, token.length) : null;
 }
