@@ -21,6 +21,7 @@ class App {
   private routes(): void {
     this.express.get('/products', product.index);
     this.express.get('/products/categories', product.categories);
+    this.express.post('/order/create', order.create);
   }
 }
 
