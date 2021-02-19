@@ -14,3 +14,11 @@ export function getPagination(page: any, offset: any) {
     to,
   };
 }
+
+export default function getPage({ itemsForPage, from, to }, products: any[]) {
+  const TOTAL_PAGES = Math.round(products.length / itemsForPage);
+  return {
+    products: products.slice(from, to),
+    pages: TOTAL_PAGES,
+  };
+}
