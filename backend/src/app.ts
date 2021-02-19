@@ -3,6 +3,7 @@ import cors from 'cors';
 import product from './controllers/product';
 import order from './controllers/order';
 import user from './controllers/user';
+import checkJwt from './middlewares/jwt';
 
 class App {
   public express: express.Application;
@@ -16,6 +17,7 @@ class App {
 
   private middlewares(): void {
     this.express.use(express.json());
+    this.express.use(checkJwt);
     this.express.use(cors());
   }
 
