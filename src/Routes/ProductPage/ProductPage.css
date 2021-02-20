@@ -1,0 +1,21 @@
+.product-page {
+  display: flex;
+  max-width: 1100px;
+  margin: 1.8rem auto;
+}
+
+.product-page__img {
+  width: 40rem;
+}
+
+.product-page__title {
+  margin-bottom: 2rem;
+}
+
+.product-page__price {
+  font-size: 1.5rem;
+}
+
+.product-page__product-info {
+  padding: 20px;
+}

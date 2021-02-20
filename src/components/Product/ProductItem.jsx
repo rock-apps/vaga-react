@@ -2,8 +2,9 @@ import RatingOutput from "../RatingsOutput/RatingOutput";
 import "./ProductItem.css";
 
 const Product = ({ product }) => {
+  console.log(product);
   return (
-    <a href="">
+    <a href={"/" + product.product_id}>
       <div className="card" style={{ width: "15rem" }}>
         <i class="lni lni-heart-filled card-wish-list"></i>
         <img src={product.img} className="card-img-top" alt="..." />

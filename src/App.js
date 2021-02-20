@@ -1,7 +1,9 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { products } from "./data.json";
-import Product from "./components/Product/ProductItem";
+import { Route } from "react-router";
+import Shop from "./Routes/Shop";
+import ProductPage from "./Routes/ProductPage/ProductPage";
 
 function App() {
   console.log(products);
@@ -31,11 +33,8 @@ function App() {
       </header>
 
       <main>
-        <div className="products-list container mt-5 d-flex flex-wrap justify-content-between">
-          {products.map((product) => (
-            <Product product={product} key={product.id} />
-          ))}
-        </div>
+        <Route path="/shop" render={() => <Shop products={products} />} />
+        <Route path="/:id" component={ProductPage} />
       </main>
 
       <footer>

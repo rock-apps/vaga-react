@@ -4,7 +4,7 @@
       "product_id": 1,
       "title": "Trendy t-shirt black",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product1.jpg",
       "rating": {
         "average": 2.5,
@@ -15,7 +15,7 @@
       "product_id": 2,
       "title": "Trendy t-shirt white",
       "price": 35.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product2.jpg",
       "rating": {
         "average": 2.5,
@@ -26,7 +26,7 @@
       "product_id": 3,
       "title": "Trendy t-shirt grey",
       "price": 20.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product3.jpg",
       "rating": {
         "average": 2.5,
@@ -38,7 +38,7 @@
       "product_id": 4,
       "title": "Trendy t-shirt",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product4.jpg",
       "rating": {
         "average": 2.5,
@@ -49,7 +49,7 @@
       "product_id": 5,
       "title": "Trendy t-shirt blue",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product5.jpg",
       "rating": {
         "average": 2.5,
@@ -61,7 +61,7 @@
       "product_id": 6,
       "title": "Trendy t-shirt green",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product6.jpg",
       "rating": {
         "average": 2.5,
@@ -72,7 +72,7 @@
       "product_id": 7,
       "title": "Trendy t-shirt",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product7.jpg",
       "rating": {
         "average": 4.5,
@@ -83,7 +83,7 @@
       "product_id": 8,
       "title": "Trendy t-shirt pink",
       "price": 30.0,
-      "description": "Lorem ipsum lorem lorem",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio modi sapiente nulla minus et? Doloremque soluta reprehenderit perspiciatis. Laudantium quisquam officiis cumque modi quae vitae et numquam minus, cum fuga.",
       "img": "/images/product8.jpg",
       "rating": {
         "average": 5,
