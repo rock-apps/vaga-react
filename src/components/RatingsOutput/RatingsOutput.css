@@ -1,0 +1,19 @@
+.rating-output {
+  display: flex;
+  font-size: 0.8rem;
+}
+.rating-output-stars {
+  display: flex;
+  margin-right: 0.3rem;
+}
+
+.lni {
+  color: rgb(97, 97, 97);
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-left: 0.2rem;
+}
+
+.star-active {
+  color: rgb(233, 211, 12);
+}

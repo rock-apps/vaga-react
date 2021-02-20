@@ -1,0 +1,50 @@
+.card {
+  width: 15rem;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  color: #222;
+  min-height: 26rem;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.old-price {
+  font-size: 0.8rem;
+  text-decoration: line-through;
+}
+
+.current-price {
+  font-size: 1.3rem;
+}
+
+.card .btn {
+  display: block;
+  margin: auto;
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;
+}
+
+.card-wish-list {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+}
+
+.card-wish-list:hover {
+  color: rgb(243, 35, 35);
+  transition: all 0.2s;
+}

@@ -1,0 +1,94 @@
+{
+  "products": [
+    {
+      "product_id": 1,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product1.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 33
+      }
+    },
+    {
+      "product_id": 2,
+      "title": "Trendy t-shirt green",
+      "price": 35.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product2.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 13
+      }
+    },
+    {
+      "product_id": 3,
+      "title": "Trendy t-shirt blue",
+      "price": 20.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product3.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 56
+      },
+      "descount": 0.1
+    },
+    {
+      "product_id": 4,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product4.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 123
+      }
+    },
+    {
+      "product_id": 5,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product5.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 31
+      },
+      "descount": 0.15
+    },
+    {
+      "product_id": 6,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product6.jpg",
+      "rating": {
+        "average": 2.5,
+        "amount": 3
+      }
+    },
+    {
+      "product_id": 7,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product7.jpg",
+      "rating": {
+        "average": 4.5,
+        "amount": 2
+      }
+    },
+    {
+      "product_id": 8,
+      "title": "Trendy t-shirt",
+      "price": 30.0,
+      "description": "Lorem ipsum lorem lorem",
+      "img": "/images/product8.jpg",
+      "rating": {
+        "average": 5,
+        "amount": 12
+      }
+    }
+  ]
+}
