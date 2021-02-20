@@ -2,7 +2,7 @@
   "products": [
     {
       "product_id": 1,
-      "title": "Trendy t-shirt",
+      "title": "Trendy t-shirt black",
       "price": 30.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product1.jpg",
@@ -13,7 +13,7 @@
     },
     {
       "product_id": 2,
-      "title": "Trendy t-shirt green",
+      "title": "Trendy t-shirt white",
       "price": 35.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product2.jpg",
@@ -24,7 +24,7 @@
     },
     {
       "product_id": 3,
-      "title": "Trendy t-shirt blue",
+      "title": "Trendy t-shirt grey",
       "price": 20.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product3.jpg",
@@ -47,7 +47,7 @@
     },
     {
       "product_id": 5,
-      "title": "Trendy t-shirt",
+      "title": "Trendy t-shirt blue",
       "price": 30.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product5.jpg",
@@ -59,7 +59,7 @@
     },
     {
       "product_id": 6,
-      "title": "Trendy t-shirt",
+      "title": "Trendy t-shirt green",
       "price": 30.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product6.jpg",
@@ -81,7 +81,7 @@
     },
     {
       "product_id": 8,
-      "title": "Trendy t-shirt",
+      "title": "Trendy t-shirt pink",
       "price": 30.0,
       "description": "Lorem ipsum lorem lorem",
       "img": "/images/product8.jpg",
