@@ -16,22 +16,24 @@ class App {
   }
 
   private middlewares(): void {
-    this.express.use(express.json());
-    this.express.use(checkJwt);
-    this.express.use(cors());
+    const { express: app } = this;
+    
+    app.use(express.json());
+    app.use(checkJwt);
+    app.use(cors());
   }
 
   private routes(): void {
-    const { express } = this;
+    const { express: app } = this;
 
-    express.get('/products', product.index);
-    express.get('/products/categories', product.categories);
+    app.get('/products', product.index);
+    app.get('/products/categories', product.categories);
 
-    express.post('/order/create', order.create);
-    express.post('/order/capture', order.capture);
+    app.post('/order/create', order.create);
+    app.post('/order/capture', order.capture);
 
-    express.post('/user/sign-up', user.signUp);
-    express.post('/user/sign-in', user.signIn);
+    app.post('/user/sign-up', user.signUp);
+    app.post('/user/sign-in', user.signIn);
   }
 }
 
