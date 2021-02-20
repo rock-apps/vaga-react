@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { withRouter } from "react-router";
 import RatingOutput from "../../components/RatingsOutput/RatingOutput";
 import { products } from "../../data.json";
 import "./ProductPage.css";
 
 const ProductPage = (props) => {
+  const { addToCart } = props;
   const [currentProduct, setCurrentProduct] = useState(null);
 
   useEffect(() => {
@@ -26,9 +28,12 @@ const ProductPage = (props) => {
               R${currentProduct.price.toFixed(2)}
             </p>
             <RatingOutput productRatings={currentProduct.rating} />
-            <a href="#" className="btn btn-primary ">
+            <button
+              className="btn btn-primary"
+              onClick={() => addToCart(currentProduct)}
+            >
               Add to cart
-            </a>
+            </button>
           </div>
         </div>
       )}
@@ -36,4 +41,4 @@ const ProductPage = (props) => {
   );
 };
 
-export default ProductPage;
+export default withRouter(ProductPage);

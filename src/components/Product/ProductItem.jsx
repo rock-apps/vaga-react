@@ -1,37 +1,40 @@
+import { Link } from "react-router-dom";
 import RatingOutput from "../RatingsOutput/RatingOutput";
 import "./ProductItem.css";
 
-const Product = ({ product }) => {
-  console.log(product);
+const Product = ({ product, addToCart }) => {
   return (
-    <a href={"/" + product.product_id}>
-      <div className="card" style={{ width: "15rem" }}>
-        <i class="lni lni-heart-filled card-wish-list"></i>
+    <div className="card" style={{ width: "15rem" }}>
+      <i className="lni lni-heart-filled card-wish-list"></i>
+      <Link to={"/" + product.product_id}>
         <img src={product.img} className="card-img-top" alt="..." />
-        <div className="card-body">
+      </Link>
+      <div className="card-body">
+        <Link to={"/" + product.product_id}>
           <h5 className="card-title">{product.title}</h5>
-          {product.descount ? (
-            <div>
-              <p>
-                <span className="old-price">De R$ {product.price}</span>
-                <span> - {product.descount * 100}% off</span>
-              </p>
+        </Link>
 
-              <p className="current-price">
-                R$
-                {(product.price - product.price * product.descount).toFixed(2)}
-              </p>
-            </div>
-          ) : (
-            <p className="current-price">R$ {product.price.toFixed(2)}</p>
-          )}
-          <RatingOutput productRatings={product.rating} />
-          <a href="#" className="btn btn-primary ">
-            Add to cart
-          </a>
-        </div>
+        {product.descount ? (
+          <div>
+            <p>
+              <span className="old-price">De R$ {product.price}</span>
+              <span> - {product.descount * 100}% off</span>
+            </p>
+
+            <p className="current-price">
+              R$
+              {(product.price - product.price * product.descount).toFixed(2)}
+            </p>
+          </div>
+        ) : (
+          <p className="current-price">R$ {product.price.toFixed(2)}</p>
+        )}
+        <RatingOutput productRatings={product.rating} />
+        <button className="btn btn-primary" onClick={() => addToCart(product)}>
+          Add to cart
+        </button>
       </div>
-    </a>
+    </div>
   );
 };
 

@@ -15,7 +15,7 @@ const RatingOutput = ({ productRatings }) => {
   let stars = [];
   for (let i = 0; i < 5; i++) {
     stars.push(
-      <div className="star-box star-box-star-1">
+      <div key={"star-" + i} className="star-box star-box-star-1">
         <i
           className={`output-star lni lni-star-filled ${
             ratingsAverage > 0 && i <= ratingsAverage ? "star-active" : ""
