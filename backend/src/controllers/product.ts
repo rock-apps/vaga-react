@@ -9,6 +9,18 @@ class Product {
     return res.status(200).json(getPage(page, offset, db.products));
   }
 
+  public item(req: Request, res: Response) {
+    const { id } = req.params;
+
+    if (id) {
+      const index = Number(id) - 1;
+      res.json(db.products[index]);
+      return;
+    }
+
+    res.sendStatus(400);
+  }
+
   public categories(req: Request, res: Response) {
     return res.status(200).json({
       categories: db.categories,
