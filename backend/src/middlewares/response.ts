@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
 
 const TYPE_JSON = 'aplication/json';
 const STATUS_CODE_OK = 200;
@@ -16,7 +16,7 @@ const jsonOk: ResponseHandle = function (data, message) {
   this.type(TYPE_JSON);
 
   return this.json({ message, data, status });
-}
+};
 
 const jsonBadRequest: ResponseHandle = function (data, message) {
   message = message || '';
@@ -25,7 +25,7 @@ const jsonBadRequest: ResponseHandle = function (data, message) {
   this.type(TYPE_JSON);
 
   return this.json({ message, data, status });
-}
+};
 
 const jsonUnauthorized: ResponseHandle = function (data, message) {
   message = message || '';
@@ -42,16 +42,26 @@ const jsonNotFound: ResponseHandle = function (data, message) {
   this.status(STATUS_CODE_NOT_FOUND);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status })
+  return this.json({ message, data, status });
+};
+
+const jsonServerError: ResponseHandle = function (data, message) {
+  message = message || '';
+
+  this.status(STATUS_CODE_SERVER_ERROR);
+  this.type(TYPE_JSON);
+
+  return this.json({ message, data, status });
 };
 
 const response = (req: Request, res: any, next: NextFunction) => {
   res.jsonOk = jsonOk;
-  res.jsonBadRequest = jsonBadRequest; 
+  res.jsonBadRequest = jsonBadRequest;
   res.jsonUnauthorized = jsonUnauthorized;
   res.jsonNotFound = jsonNotFound;
+  res.jsonServerError = jsonServerError;
 
   next();
-}
+};
 
 export default response;
