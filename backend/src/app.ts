@@ -27,6 +27,8 @@ class App {
     const { express: app } = this;
 
     app.get('/products', product.index);
+    app.get('/products/:id', product.item);
+    app.get('/products/category/:id', product.category);
     app.get('/products/categories', product.categories);
 
     app.post('/order/create', order.create);
