@@ -27,19 +27,29 @@ const jsonBadRequest: ResponseHandle = function (data, message) {
   return this.json({ message, data, status });
 }
 
-const jsonUnauthorized = function (data, message, metadata) {
+const jsonUnauthorized: ResponseHandle = function (data, message) {
   message = message || '';
 
   this.status(STATUS_CODE_UNAUTHORIZED);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, metadata, status });
+  return this.json({ message, data, status });
+};
+
+const jsonNotFound: ResponseHandle = function (data, message) {
+  message = message || 'request not found';
+
+  this.status(STATUS_CODE_NOT_FOUND);
+  this.type(TYPE_JSON);
+
+  return this.json({ message, data, status })
 };
 
 const response = (req: Request, res: any, next: NextFunction) => {
   res.jsonOk = jsonOk;
   res.jsonBadRequest = jsonBadRequest; 
   res.jsonUnauthorized = jsonUnauthorized;
+  res.jsonNotFound = jsonNotFound;
 
   next();
 }
