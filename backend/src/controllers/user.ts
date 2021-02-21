@@ -39,10 +39,8 @@ class User {
       const refreshToken = generateRefreshJwt({ id: newAccountId });
 
       res.status(STATUS_CODE_CREATED).json({
-        account: {
-          email,
-          id: newAccountId,
-        },
+        email,
+        id: newAccountId,
         token,
         refreshToken,
       });
@@ -68,10 +66,8 @@ class User {
       const refreshToken = generateRefreshJwt({ id: account.id });
 
       res.status(STATUS_CODE_OK).json({
-        account: {
-          id: account.id,
-          email: account.email,
-        },
+        id: account.id,
+        email: account.email,
         token,
         refreshToken,
       });
