@@ -27,10 +27,19 @@ const jsonBadRequest: ResponseHandle = function (data, message) {
   return this.json({ message, data, status });
 }
 
+const jsonUnauthorized = function (data, message, metadata) {
+  message = message || '';
+
+  this.status(STATUS_CODE_UNAUTHORIZED);
+  this.type(TYPE_JSON);
+
+  return this.json({ message, data, metadata, status });
+};
+
 const response = (req: Request, res: any, next: NextFunction) => {
   res.jsonOk = jsonOk;
   res.jsonBadRequest = jsonBadRequest; 
-
+  res.jsonUnauthorized = jsonUnauthorized;
 
   next();
 }
