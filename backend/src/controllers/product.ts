@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import db from '../../products.json';
 import getPage from '../utils/getPage';
 
+const ERROR_RESPONSE = { products: [] };
+
 class Product {
   public index(req: Request, res: Response) {
     const { page, offset } = req.query;
@@ -12,13 +14,29 @@ class Product {
   public item(req: Request, res: Response) {
     const { id } = req.params;
 
-    if (id) {
+    try {
       const index = Number(id) - 1;
       res.json(db.products[index]);
-      return;
+    } catch {
+      res.json(ERROR_RESPONSE);
     }
+  }
 
-    res.sendStatus(400);
+  public category(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const categoryId = Number(id);
+      const selectedCategory = db.categories[categoryId];
+      const products = db.products.filter(prod => prod.categoryId === categoryId);
+      
+      res.json({
+        products,
+        category: selectedCategory,
+      });
+    } catch {
+      res.json(ERROR_RESPONSE);
+    }
   }
 
   public categories(req: Request, res: Response) {
