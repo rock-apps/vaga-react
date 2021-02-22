@@ -1,26 +1,26 @@
 import db from '../database/connection';
 
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import { generateJwt, generateRefreshJwt } from '../utils/jwt';
 
-const STATUS_CODE_OK = 200;
-const STATUS_CODE_CREATED = 201;
-const STATUS_CODE_BAD_REQUEST = 400;
-const STATUS_CODE_SERVER_ERROR = 500;
+import bcrypt from 'bcrypt';
+import {
+  generateJwt,
+  generateRefreshJwt,
+  getTokenFromHeaders,
+} from '../utils/jwt';
 
 class User {
-  async signUp(req: Request, res: Response) {
+  async signUp(req: Request, res: Response): Promise<Response> {
     const { name, tel, email, password, avatar, address } = req.body;
-
+    
     const emailAlreadyExists = await db('users')
       .select('users.email')
       .where('users.email', '=', email);
 
     if (emailAlreadyExists.length > 0) {
-      return res
-        .status(STATUS_CODE_BAD_REQUEST)
-        .json({ message: 'Endereço de email já cadastrado!' });
+      return res.jsonBadRequest({
+        message: 'Endereço de email já cadastrado!',
+      });
     }
 
     try {
@@ -38,18 +38,21 @@ class User {
       const token = generateJwt({ id: newAccountId });
       const refreshToken = generateRefreshJwt({ id: newAccountId });
 
-      res.status(STATUS_CODE_CREATED).json({
+      res.jsonOk({
         email,
         id: newAccountId,
         token,
         refreshToken,
       });
     } catch (err) {
-      res.sendStatus(STATUS_CODE_SERVER_ERROR);
+      res.jsonServerError({
+        message:
+          'Ocorreu um erro ao cadastrar sua conta, por favor tente mais tarde',
+      });
     }
   }
 
-  async signIn(req: Request, res: Response) {
+  async signIn(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
     try {
@@ -57,22 +60,24 @@ class User {
         .select('*')
         .where('users.email', '=', email);
 
-      if (!account) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
+      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
+
+      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
 
       const match = bcrypt.compareSync(password, account.password);
-      if (!match) return res.sendStatus(STATUS_CODE_BAD_REQUEST);
+      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
 
       const token = generateJwt({ id: account.id });
       const refreshToken = generateRefreshJwt({ id: account.id });
 
-      res.status(STATUS_CODE_OK).json({
+      return res.jsonOk({
         id: account.id,
         email: account.email,
         token,
         refreshToken,
       });
     } catch (err) {
-      res.sendStatus(STATUS_CODE_SERVER_ERROR);
+      return res.jsonServerError();
     }
   }
 }
