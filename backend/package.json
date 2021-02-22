@@ -2,7 +2,7 @@
   "name": "store-app",
   "version": "1.0.0",
   "description": "A store-app with paypal",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "https://github.com/Nadno/vaga-react",
   "scripts": {
     "dev": "nodemon src/server.ts",
