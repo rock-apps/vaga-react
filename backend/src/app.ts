@@ -39,6 +39,9 @@ class App {
 
     app.post('/user/sign-up', user.signUp);
     app.post('/user/sign-in', user.signIn);
+    app.put('/user/update', user.update);
+    app.delete('/user/unsign-up', user.unsignUp);
+    
     app.post('/refresh', user.refresh);
   }
 }
