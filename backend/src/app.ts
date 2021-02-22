@@ -1,9 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import product from './controllers/product';
+
+import checkJwt from './middlewares/jwt';
+import response from './middlewares/response';
+
+import product from './controllers/products/product';
 import order from './controllers/order';
 import user from './controllers/user';
-import checkJwt from './middlewares/jwt';
 
 class App {
   public express: express.Application;
@@ -20,16 +23,16 @@ class App {
     
     app.use(express.json());
     app.use(checkJwt);
+    app.use(response);
     app.use(cors());
   }
 
   private routes(): void {
     const { express: app } = this;
 
-    app.get('/products', product.index);
-    app.get('/products/:id', product.item);
-    app.get('/products/category/:id', product.category);
-    app.get('/products/categories', product.categories);
+    app.get('/product', product.index);
+    app.get('/product/:filter', product.item);
+    app.get('/product/categories', product.categories);
 
     app.post('/order/create', order.create);
     app.post('/order/capture', order.capture);
