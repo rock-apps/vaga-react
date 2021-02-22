@@ -1,57 +1,61 @@
 import { NextFunction, Request, Response } from 'express';
+import { ResponseHandle } from '../response';
 
-const TYPE_JSON = 'aplication/json';
+const TYPE_JSON = 'application/json';
 const STATUS_CODE_OK = 200;
 const STATUS_CODE_BAD_REQUEST = 400;
 const STATUS_CODE_UNAUTHORIZED = 401;
 const STATUS_CODE_NOT_FOUND = 404;
 const STATUS_CODE_SERVER_ERROR = 500;
 
-type ResponseHandle = (data: object, message: string) => Response;
+const jsonOk: ResponseHandle = function (data) {
+  const status = STATUS_CODE_OK;
+  data = data || {};
 
-const jsonOk: ResponseHandle = function (data, message) {
-  message = message || '';
-
-  this.status(STATUS_CODE_OK);
+  this.status(status);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status });
+  return this.json({ ...data, status });
 };
 
-const jsonBadRequest: ResponseHandle = function (data, message) {
-  message = message || '';
+const jsonBadRequest: ResponseHandle = function (data) {
+  const status = STATUS_CODE_BAD_REQUEST;
+  data = data || {};
 
-  this.status(STATUS_CODE_BAD_REQUEST);
+  this.status(status);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status });
+  return this.json({ ...data, status });
 };
 
-const jsonUnauthorized: ResponseHandle = function (data, message) {
-  message = message || '';
+const jsonUnauthorized: ResponseHandle = function (data) {
+  const status = STATUS_CODE_UNAUTHORIZED;
+  data = data || {};
 
-  this.status(STATUS_CODE_UNAUTHORIZED);
+  this.status(status);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status });
+  return this.json({ ...data, status });
 };
 
-const jsonNotFound: ResponseHandle = function (data, message) {
-  message = message || 'request not found';
+const jsonNotFound: ResponseHandle = function (data) {
+  const status = STATUS_CODE_NOT_FOUND;
+  data = data || {};
 
-  this.status(STATUS_CODE_NOT_FOUND);
+  this.status(status);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status });
+  return this.json({ message: 'request not found', ...data, status });
 };
 
-const jsonServerError: ResponseHandle = function (data, message) {
-  message = message || '';
+const jsonServerError: ResponseHandle = function (data) {
+  const status = STATUS_CODE_SERVER_ERROR;
+  data = data || {};
 
-  this.status(STATUS_CODE_SERVER_ERROR);
+  this.status(status);
   this.type(TYPE_JSON);
 
-  return this.json({ message, data, status });
+  return this.json({ ...data, status });
 };
 
 const response = (req: Request, res: any, next: NextFunction) => {
