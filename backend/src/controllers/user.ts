@@ -60,6 +60,31 @@ class User {
     }
   }
 
+  public async unsignUp(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+
+    const [account] = await db('users').select('*').where('email', '=', email);
+    if (!account)
+      return res.jsonBadRequest({
+        message: 'Houve um erro ao deletar sua conta!',
+      });
+
+    const match = bcrypt.compareSync(password, account.password);
+    if (!match) res.jsonBadRequest({ message: 'Senha inválida' });
+
+    try {
+      await db('users').delete('*').where({
+        id: account.id,
+      });
+
+      return res.jsonOk();
+    } catch {
+      return res.jsonServerError({
+        message: 'Não foi possível deletar sua conta',
+      });
+    }
+  }
+
   public async signIn(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
@@ -104,7 +129,7 @@ class User {
 
       const meta = {
         token: generateJwt({ id: account.id }),
-      }
+      };
 
       return res.jsonOk(meta);
     } catch {
