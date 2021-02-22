@@ -63,16 +63,19 @@ class User {
   public async unsignUp(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
-    const [account] = await db('users').select('*').where('email', '=', email);
-    if (!account)
-      return res.jsonBadRequest({
-        message: 'Houve um erro ao deletar sua conta!',
-      });
-
-    const match = bcrypt.compareSync(password, account.password);
-    if (!match) res.jsonBadRequest({ message: 'Senha inválida' });
-
     try {
+      const [account] = await db('users')
+        .select('*')
+        .where('email', '=', email);
+
+      if (!account)
+        return res.jsonBadRequest({
+          message: 'Houve um erro ao deletar sua conta!',
+        });
+
+      const match = bcrypt.compareSync(password, account.password);
+      if (!match) res.jsonBadRequest({ message: 'Senha inválida' });
+
       await db('users').delete('*').where({
         id: account.id,
       });
@@ -109,6 +112,36 @@ class User {
         token,
         refreshToken,
       });
+    } catch (err) {
+      return res.jsonServerError();
+    }
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const { name, tel, email, password, avatar, address } = req.body;
+
+    try {
+      const [account] = await db('users')
+        .select('*')
+        .where('users.email', '=', email);
+
+      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
+
+      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+
+      const match = bcrypt.compareSync(password, account.password);
+      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+
+      await db('users')
+        .update({
+          name,
+          tel,
+          avatar,
+          address,
+        })
+        .where('id', '=', account.id);
+
+      return res.jsonOk();
     } catch (err) {
       return res.jsonServerError();
     }
