@@ -1,0 +1,46 @@
+{
+  "categories": ["mouse", "impressora"],
+  "products": [
+    {
+      "id": 1,
+      "price": 82.0,
+      "title": "Mouse optical Basic Com Fio",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptate ratione odit earum cupiditate minima quas ut assumenda est, id impedit, accusantium, ullam similique pariatur et ipsa tempora quibusdam! Quos!",
+      "categoryId": 0,
+      "image": "https://dummyimage.com/400x350",
+      "details": {
+        "Cor": "Preto",
+        "Botões": 2,
+        "Comprimento": 1.6,
+        "DPI": 2500,
+        "Peso": "80g",
+        "Interface": "USB",
+        "Mais informações": "Lorem ipsum dolor sit amet consectetur adipisicing elit"
+      }
+    },
+    {
+      "id": 2,
+      "price": 52.5,
+      "title": "Mouse optical Basic Sem Fio",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptate ratione odit earum cupiditate minima quas ut assumenda est, id impedit",
+      "categoryId": 0,
+      "image": "https://dummyimage.com/400x350"
+    },
+    {
+      "id": 3,
+      "price": 315.7,
+      "title": "Impressora HP",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+      "categoryId": 1,
+      "image": "https://dummyimage.com/400x350"
+    },
+    {
+      "id": 4,
+      "price": 199.9,
+      "title": "Impressora Wi-Fi",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptate ratione odit earum cupiditate minima quas ut assumenda est, id impedit",
+      "categoryId": 1,
+      "image": "https://dummyimage.com/400x350"
+    }
+  ]
+}
