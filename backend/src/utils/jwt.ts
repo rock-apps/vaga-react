@@ -14,13 +14,20 @@ export interface Payload {
   version?: number;
 }
 
+export interface Decoded {
+  id: number;
+  iat: number;
+  exp: number;
+  version: number;
+}
+
 export const generateJwt = (payload: Payload) =>
   JWT.sign(payload, tokenPrivateKey, options);
 export const generateRefreshJwt = (payload: Payload) =>
   JWT.sign(payload, refreshTokenPrivateKey, refreshOptions);
 
 export const verifyJwt = (token: string) => JWT.verify(token, tokenPrivateKey);
-export const verifyRefreshJwt = (token: string) => JWT.verify(token, refreshTokenPrivateKey);
+export const verifyRefreshJwt = (token: string) => JWT.verify(token, refreshTokenPrivateKey) as Decoded;
 
 export const getTokenFromHeaders = (headers: IncomingHttpHeaders) => {
   const token = headers['authorization'];
