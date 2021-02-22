@@ -7,12 +7,13 @@ import {
   generateJwt,
   generateRefreshJwt,
   getTokenFromHeaders,
+  verifyRefreshJwt,
 } from '../utils/jwt';
 
 class User {
-  async signUp(req: Request, res: Response): Promise<Response> {
+  public async signUp(req: Request, res: Response): Promise<Response> {
     const { name, tel, email, password, avatar, address } = req.body;
-    
+
     const emailAlreadyExists = await db('users')
       .select('users.email')
       .where('users.email', '=', email);
@@ -35,12 +36,19 @@ class User {
         address,
       });
 
-      const token = generateJwt({ id: newAccountId });
-      const refreshToken = generateRefreshJwt({ id: newAccountId });
+      const [account] = await db('users')
+        .select('*')
+        .where('id', '=', newAccountId);
+
+      const token = generateJwt({ id: account.id });
+      const refreshToken = generateRefreshJwt({
+        id: account.id,
+        version: account.jwtVersion,
+      });
 
       res.jsonOk({
         email,
-        id: newAccountId,
+        id: account.id,
         token,
         refreshToken,
       });
@@ -52,7 +60,7 @@ class User {
     }
   }
 
-  async signIn(req: Request, res: Response): Promise<Response> {
+  public async signIn(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
     try {
@@ -78,6 +86,29 @@ class User {
       });
     } catch (err) {
       return res.jsonServerError();
+    }
+  }
+
+  public async refresh(req: Request, res: Response): Promise<Response> {
+    const token = getTokenFromHeaders(req.headers);
+    if (!token) res.jsonUnauthorized({ message: 'Token inválido' });
+
+    try {
+      const decoded = verifyRefreshJwt(token);
+      const [account] = await db('users')
+        .select('*')
+        .where('id', '=', decoded.id);
+
+      if (!account) return res.jsonUnauthorized();
+      if (decoded.version !== account.jwtVersion) return res.jsonUnauthorized();
+
+      const meta = {
+        token: generateJwt({ id: account.id }),
+      }
+
+      return res.jsonOk(meta);
+    } catch {
+      return res.jsonUnauthorized();
     }
   }
 }
