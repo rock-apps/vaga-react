@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
     table.string('name').notNullable();
     table.string('tel');
     table.string('avatar');
+    table.integer('jwtVersion').defaultTo(0).notNullable();
   })
 }
 
