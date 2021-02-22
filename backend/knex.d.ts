@@ -9,6 +9,7 @@ declare module 'knex/types/tables' {
     address: string;
     tel?: string;
     avatar?: string;
+    jwtVersion: number;
   }
 
   interface Tables {
