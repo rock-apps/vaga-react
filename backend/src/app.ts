@@ -20,11 +20,11 @@ class App {
 
   private middlewares(): void {
     const { express: app } = this;
-    
-    app.use(express.json());
-    app.use(checkJwt);
-    app.use(response);
+	
     app.use(cors());
+    app.use(express.json());
+    app.use(response);
+    app.use(checkJwt);
   }
 
   private routes(): void {
@@ -32,10 +32,8 @@ class App {
 
     app.get('/product', product.index);
     app.get('/product/:filter', product.item);
-    app.get('/product/categories', product.categories);
 
     app.post('/order/create', order.create);
-    app.post('/order/capture', order.capture);
 
     app.post('/user/sign-up', user.signUp);
     app.post('/user/sign-in', user.signIn);
