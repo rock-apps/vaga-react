@@ -27,12 +27,6 @@ class Product {
 
     return res.jsonServerError(ERROR_RESPONSE);
   }
-
-  public categories(req: Request, res: Response) {
-    return res.jsonOk({
-      categories: db.categories,
-    });
-  }
 }
 
 export default new Product();
