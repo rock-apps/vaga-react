@@ -1,17 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import { getTokenFromHeaders, verifyJwt } from '../utils/jwt';
 
-const STATUS_CODE_UNAUTHORIZED = 401;
-const EXCLUDED_PATHS = ['/product', '/products/:filter', '/refresh', '/user/sign-in', '/user/sign-up'];
+const EXCLUDED_PATHS = [
+  '/product',
+  '/products/:filter',
+  '/refresh',
+  '/user/sign-in',
+  '/user/sign-up',
+];
 
 const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   const { url: path } = req;
 
-  const isExcluded = !!EXCLUDED_PATHS.find((p) => path.includes(p));
+  const isExcluded = !!EXCLUDED_PATHS.find(p => path.includes(p));
   if (isExcluded) return next();
 
   let token = getTokenFromHeaders(req.headers);
-  if (!token) return res.sendStatus(STATUS_CODE_UNAUTHORIZED);
+  if (!token) return res.jsonUnauthorized();
 
   try {
     const decoded = verifyJwt(token) as { id: string };
@@ -23,7 +28,7 @@ const checkJwt = (req: Request, res: Response, next: NextFunction) => {
 
     next();
   } catch (err) {
-    res.sendStatus(STATUS_CODE_UNAUTHORIZED);
+    res.jsonUnauthorized();
   }
 };
 
