@@ -3,7 +3,9 @@ import db from '../../../products.json';
 class Filter {
   public id(product_id: string): object {
     const id = Number(product_id) - 1;
-    return db.products[id];
+    return {
+      product: db.products[id],
+    };
   }
 
   public name(product_name: string): object {
@@ -13,12 +15,19 @@ class Filter {
   }
 
   public category(product_category: string): object {
-    const categoryId = Number(product_category);
-    const selectedCategory = db.categories[categoryId];
+    const id = db.categories.indexOf(product_category);
+    const categoryId = id >= 0 ? id : Number(product_category);
 
     return {
-      products: db.products.filter((prod) => prod.categoryId === categoryId),
-      category: selectedCategory,
+      products: db.products.filter(prod => prod.categoryId === categoryId),
+      name: db.categories[categoryId],
+      description: db.categoriesDescriptions[categoryId],
+    };
+  }
+
+  public categories() {
+    return {
+      categories: db.categories,
     };
   }
 }
