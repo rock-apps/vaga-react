@@ -1,5 +1,9 @@
 {
-  "categories": ["mouse", "impressora"],
+  "categories": ["mouses", "impressoras"],
+  "categoriesDescriptions": [
+    "Encontre diversos tipos de mouses games aqui!",
+    "Todos tipos de impressora que você precisa"
+  ],
   "products": [
     {
       "id": 1,
@@ -7,16 +11,7 @@
       "title": "Mouse optical Basic Com Fio",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptate ratione odit earum cupiditate minima quas ut assumenda est, id impedit, accusantium, ullam similique pariatur et ipsa tempora quibusdam! Quos!",
       "categoryId": 0,
-      "image": "https://dummyimage.com/400x350",
-      "details": {
-        "Cor": "Preto",
-        "Botões": 2,
-        "Comprimento": 1.6,
-        "DPI": 2500,
-        "Peso": "80g",
-        "Interface": "USB",
-        "Mais informações": "Lorem ipsum dolor sit amet consectetur adipisicing elit"
-      }
+      "image": "https://dummyimage.com/400x350"
     },
     {
       "id": 2,
