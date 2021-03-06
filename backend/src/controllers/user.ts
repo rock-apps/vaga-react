@@ -9,9 +9,25 @@ import {
   getTokenFromHeaders,
   verifyRefreshJwt,
 } from '../utils/jwt';
-
 class User {
-  public async signUp(req: Request, res: Response): Promise<Response> {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    if (!id) return res.jsonBadRequest();
+
+    try {
+      const [account] = await db('users').select('*').where('id', '=', id);
+
+      if (!account) throw 'account';
+      const { password, jwtVersion, ...restAccount } = account;
+
+      return res.jsonOk({ account: restAccount });
+    } catch (err) {
+      if (err === 'account') return res.jsonBadRequest();
+      return res.jsonServerError();
+    }
+  }
+
+  public async create(req: Request, res: Response): Promise<Response> {
     const { name, tel, email, password, avatar, address } = req.body;
 
     const emailAlreadyExists = await db('users')
@@ -47,7 +63,7 @@ class User {
       });
 
       res.jsonOk({
-        email,
+        avatar,
         id: account.id,
         token,
         refreshToken,
@@ -60,7 +76,39 @@ class User {
     }
   }
 
-  public async unsignUp(req: Request, res: Response): Promise<Response> {
+  public async login(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+
+    try {
+      const [account] = await db('users')
+        .select('*')
+        .where('users.email', '=', email);
+
+      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
+
+      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+
+      const match = bcrypt.compareSync(password, account.password);
+      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+
+      const token = generateJwt({ id: account.id });
+      const refreshToken = generateRefreshJwt({
+        id: account.id,
+        version: account.jwtVersion,
+      });
+
+      return res.jsonOk({
+        id: account.id,
+        avatar: account.avatar,
+        token,
+        refreshToken,
+      });
+    } catch (err) {
+      return res.jsonServerError();
+    }
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
     try {
@@ -85,35 +133,6 @@ class User {
       return res.jsonServerError({
         message: 'Não foi possível deletar sua conta',
       });
-    }
-  }
-
-  public async signIn(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
-
-    try {
-      const [account] = await db('users')
-        .select('*')
-        .where('users.email', '=', email);
-
-      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
-
-      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
-
-      const match = bcrypt.compareSync(password, account.password);
-      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
-
-      const token = generateJwt({ id: account.id });
-      const refreshToken = generateRefreshJwt({ id: account.id });
-
-      return res.jsonOk({
-        id: account.id,
-        email: account.email,
-        token,
-        refreshToken,
-      });
-    } catch (err) {
-      return res.jsonServerError();
     }
   }
 
@@ -153,6 +172,7 @@ class User {
 
     try {
       const decoded = verifyRefreshJwt(token);
+
       const [account] = await db('users')
         .select('*')
         .where('id', '=', decoded.id);
@@ -165,7 +185,7 @@ class User {
       };
 
       return res.jsonOk(meta);
-    } catch {
+    } catch (err) {
       return res.jsonUnauthorized();
     }
   }
