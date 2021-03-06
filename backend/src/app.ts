@@ -35,10 +35,11 @@ class App {
 
     app.post('/order/create', order.create);
 
-    app.post('/user/sign-up', user.signUp);
-    app.post('/user/sign-in', user.signIn);
+    app.get('/user/:id', user.index);
     app.put('/user/update', user.update);
-    app.delete('/user/unsign-up', user.unsignUp);
+    app.post('/user/sign-in', user.login);
+    app.post('/user/sign-up', user.create);
+    app.delete('/user/delete', user.delete);
     
     app.post('/refresh', user.refresh);
   }
