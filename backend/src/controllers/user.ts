@@ -9,6 +9,8 @@ import {
   getTokenFromHeaders,
   verifyRefreshJwt,
 } from '../utils/jwt';
+import checkLogin from '../utils/login';
+
 class User {
   public async index(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
@@ -77,19 +79,8 @@ class User {
   }
 
   public async login(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
-
     try {
-      const [account] = await db('users')
-        .select('*')
-        .where('users.email', '=', email);
-
-      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
-
-      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
-
-      const match = bcrypt.compareSync(password, account.password);
-      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+      const account = await checkLogin(req.body);
 
       const token = generateJwt({ id: account.id });
       const refreshToken = generateRefreshJwt({
@@ -108,23 +99,14 @@ class User {
     }
   }
 
-  public async delete(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body;
+  public async remove(req: Request, res: Response): Promise<Response> {
+    const { toDelete = [] } = req.body;
+    if (!toDelete.length) return res.jsonBadRequest();
 
     try {
-      const [account] = await db('users')
-        .select('*')
-        .where('email', '=', email);
+      const account = await checkLogin(req.body);
 
-      if (!account)
-        return res.jsonBadRequest({
-          message: 'Houve um erro ao deletar sua conta!',
-        });
-
-      const match = bcrypt.compareSync(password, account.password);
-      if (!match) res.jsonBadRequest({ message: 'Senha inválida' });
-
-      await db('users').delete('*').where({
+      await db('users').delete(toDelete).where({
         id: account.id,
       });
 
@@ -137,19 +119,10 @@ class User {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const { name, tel, email, password, avatar, address } = req.body;
+    const { name, tel, avatar, address } = req.body;
 
     try {
-      const [account] = await db('users')
-        .select('*')
-        .where('users.email', '=', email);
-
-      const ERROR_MESSAGE = 'Senha ou e-mail incorretos';
-
-      if (!account) return res.jsonBadRequest({ message: ERROR_MESSAGE });
-
-      const match = bcrypt.compareSync(password, account.password);
-      if (!match) return res.jsonBadRequest({ message: ERROR_MESSAGE });
+      const account = await checkLogin(req.body);
 
       await db('users')
         .update({
@@ -162,7 +135,7 @@ class User {
 
       return res.jsonOk();
     } catch (err) {
-      return res.jsonServerError();
+      return res.jsonBadRequest();
     }
   }
 
