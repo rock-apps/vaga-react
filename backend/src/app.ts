@@ -39,7 +39,7 @@ class App {
     app.put('/user/update', user.update);
     app.post('/user/sign-in', user.login);
     app.post('/user/sign-up', user.create);
-    app.delete('/user/delete', user.delete);
+    app.delete('/user/delete', user.remove);
     
     app.post('/refresh', user.refresh);
   }
