@@ -1,33 +1,40 @@
-import db from '../../../products.json';
+import JSONdb from '../../../products.json';
+import db from '../../database/connection';
 
 class Filter {
-  public id(product_id: string): object {
+  public async id(product_id: string): Promise<object> {
     const id = Number(product_id) - 1;
+
+    const [avg] = await db('rating')
+      .where('rating.product_id', '=', product_id)
+      .avg('rate');
+
     return {
-      product: db.products[id],
+      product: JSONdb.products[id],
+      rating: avg['avg(`rate`)'] ?? 0,
     };
   }
 
   public name(product_name: string): object {
     return {
-      products: db.products.filter(({ title }) => ~title.indexOf(product_name)),
+      products: JSONdb.products.filter(({ title }) => ~title.indexOf(product_name)),
     };
   }
 
   public category(product_category: string): object {
-    const id = db.categories.indexOf(product_category);
+    const id = JSONdb.categories.indexOf(product_category);
     const categoryId = id >= 0 ? id : Number(product_category);
 
     return {
-      products: db.products.filter(prod => prod.categoryId === categoryId),
-      name: db.categories[categoryId],
-      description: db.categoriesDescriptions[categoryId],
+      products: JSONdb.products.filter(prod => prod.categoryId === categoryId),
+      name: JSONdb.categories[categoryId],
+      description: JSONdb.categoriesDescriptions[categoryId],
     };
   }
 
   public categories() {
     return {
-      categories: db.categories,
+      categories: JSONdb.categories,
     };
   }
 }
