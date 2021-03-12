@@ -30,7 +30,7 @@ class User {
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, tel, email, password, avatar, address } = req.body;
+    const { tel, cep, name, email, password, avatar, address } = req.body;
 
     const emailAlreadyExists = await db('users')
       .select('users.email')
@@ -46,8 +46,9 @@ class User {
       const hash = bcrypt.hashSync(password, 10);
 
       const [newAccountId] = await db('users').insert({
-        name,
         tel,
+        cep,
+        name,
         email,
         password: hash,
         avatar,
@@ -95,7 +96,7 @@ class User {
         refreshToken,
       });
     } catch (err) {
-      return res.jsonServerError();
+      return res.jsonBadRequest({ message: err });
     }
   }
 
@@ -120,9 +121,9 @@ class User {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { name, tel, avatar, address } = req.body;
-
+	
     try {
-      const account = await checkLogin(req.body);
+      const { id } = await checkLogin(req.body);
 
       await db('users')
         .update({
@@ -131,9 +132,9 @@ class User {
           avatar,
           address,
         })
-        .where('id', '=', account.id);
+        .where('id', '=', id);
 
-      return res.jsonOk();
+      return res.jsonOk({ avatar, id });
     } catch (err) {
       return res.jsonBadRequest();
     }
