@@ -30,7 +30,7 @@ class Product {
     const { rate, comment, product_id, user_id } = req.body;
 
     try {
-      const [ratingId] = await db('rate').insert({
+      const [ratingId] = await db('rating').insert({
         rate,
         product_id,
         user_id,
@@ -43,13 +43,30 @@ class Product {
         });
 
       {
-        const comment = await db('rate')
-          .where('rate.id', '=', ratingId)
-          .join('users', 'rate.user_id', '=', user_id)
-          .select('rate.*', 'users.name', 'users.avatar');
+        const [comment] = await db('rating')
+          .where('rating.id', '=', ratingId)
+          .join('users', 'rating.user_id', '=', user_id)
+          .select('rating.*', 'users.name', 'users.avatar');
 
         res.jsonOk({ comment });
       }
+    } catch {
+      res.jsonServerError();
+    }
+  }
+
+  public async comments(req: Request, res: Response): Promise<Response> {
+    const { product_id } = req.params;
+
+    if (!product_id) res.jsonBadRequest({ message: 'Product id deve ser um valor válido!' });
+
+    try {
+      const comments = await db('rating')
+        .where('rating.product_id', '=', product_id)
+        .join('users', 'rating.user_id', '=', 'users.id')
+        .select('rating.*', 'users.name', 'users.avatar');
+
+      return res.jsonOk({ comments })
     } catch {
       res.jsonServerError();
     }
