@@ -9,18 +9,18 @@ import order from './controllers/order';
 import user from './controllers/user';
 
 class App {
-  public express: express.Application;
+  public app: express.Application;
 
   public constructor() {
-    this.express = express();
+    this.app = express();
 
     this.middlewares();
     this.routes();
   }
 
   private middlewares(): void {
-    const { express: app } = this;
-	
+    const { app } = this;
+
     app.use(cors());
     app.use(express.json());
     app.use(response);
@@ -28,10 +28,12 @@ class App {
   }
 
   private routes(): void {
-    const { express: app } = this;
+    const { app } = this;
 
     app.get('/product', product.index);
     app.get('/product/:filter', product.item);
+    app.post('/product/rate', product.rating);
+    app.get('/product/comments/:product_id', product.comments);
 
     app.post('/order/create', order.create);
 
@@ -40,9 +42,9 @@ class App {
     app.post('/user/sign-in', user.login);
     app.post('/user/sign-up', user.create);
     app.delete('/user/delete', user.remove);
-    
+
     app.post('/refresh', user.refresh);
   }
 }
 
-export default new App().express;
+export default new App().app;
