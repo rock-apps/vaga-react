@@ -5,6 +5,8 @@ import JSONdb from '../../../products.json';
 import getPage from '../../utils/getPage';
 import db from '../../database/connection';
 
+const ITEMS_FOR_PAGE = 5;
+
 class Product {
   public index(req: Request, res: Response): Response {
     const { page, offset } = req.query;
@@ -32,9 +34,9 @@ class Product {
     try {
       const [ratingId] = await db('rating').insert({
         rate,
-        product_id,
-        user_id,
         comment,
+        user_id,
+        product_id,
       });
 
       if (!ratingId)
@@ -48,27 +50,40 @@ class Product {
           .join('users', 'rating.user_id', '=', user_id)
           .select('rating.*', 'users.name', 'users.avatar');
 
-        res.jsonOk({ comment });
+        return res.jsonOk({ comment });
       }
     } catch {
-      res.jsonServerError();
+      return res.jsonServerError();
     }
   }
 
   public async comments(req: Request, res: Response): Promise<Response> {
     const { product_id } = req.params;
+    const { page = 1 } = req.query;
 
-    if (!product_id) res.jsonBadRequest({ message: 'Product id deve ser um valor válido!' });
+    if (!product_id) return res.jsonBadRequest({ message: 'Product id deve ser um valor válido!' });
 
     try {
       const comments = await db('rating')
         .where('rating.product_id', '=', product_id)
         .join('users', 'rating.user_id', '=', 'users.id')
-        .select('rating.*', 'users.name', 'users.avatar');
+        .select('rating.*', 'users.name', 'users.avatar')
+        .limit(ITEMS_FOR_PAGE)
+        .offset((Number(page) - 1) * ITEMS_FOR_PAGE);
+
+        if (Number(page) == 1) {
+          const [count] = await db('rating')
+            .where('rating.product_id', '=', product_id)
+            .count();
+          const quantity = Number(count['count(*)']) ?? ITEMS_FOR_PAGE;
+          const pages = Math.ceil(quantity / ITEMS_FOR_PAGE);
+
+          return res.jsonOk({ comments, pages });
+        }
 
       return res.jsonOk({ comments })
     } catch {
-      res.jsonServerError();
+      return res.jsonServerError();
     }
   }
 }
