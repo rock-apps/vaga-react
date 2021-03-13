@@ -90,10 +90,9 @@ class User {
       });
 
       return res.jsonOk({
-        id: account.id,
-        avatar: account.avatar,
         token,
         refreshToken,
+        ...account,
       });
     } catch (err) {
       return res.jsonBadRequest({ message: err });
@@ -121,9 +120,9 @@ class User {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { name, tel, avatar, address } = req.body;
-	
+
     try {
-      const { id } = await checkLogin(req.body);
+      const account = await checkLogin(req.body);
 
       await db('users')
         .update({
@@ -132,9 +131,9 @@ class User {
           avatar,
           address,
         })
-        .where('id', '=', id);
+        .where('id', '=', account.id);
 
-      return res.jsonOk({ avatar, id });
+      return res.jsonOk(account);
     } catch (err) {
       return res.jsonBadRequest();
     }
