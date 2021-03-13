@@ -1,4 +1,4 @@
-import JSONdb from '../../../products.json';
+import JSONdb from '../../products.json';
 import db from '../../database/connection';
 
 class Filter {

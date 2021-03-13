@@ -65,14 +65,14 @@ class User {
         version: account.jwtVersion,
       });
 
-      res.jsonOk({
+      return res.jsonOk({
         avatar,
         id: account.id,
         token,
         refreshToken,
       });
     } catch (err) {
-      res.jsonServerError({
+      return res.jsonServerError({
         message:
           'Ocorreu um erro ao cadastrar sua conta, por favor tente mais tarde',
       });
@@ -141,7 +141,7 @@ class User {
 
   public async refresh(req: Request, res: Response): Promise<Response> {
     const token = getTokenFromHeaders(req.headers);
-    if (!token) res.jsonUnauthorized({ message: 'Token inválido' });
+    if (token != null) res.jsonUnauthorized({ message: 'Token inválido' });
 
     try {
       const decoded = verifyRefreshJwt(token);

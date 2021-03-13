@@ -3,8 +3,8 @@ require('dotenv').config();
 import { IncomingHttpHeaders } from 'http';
 import JWT from 'jsonwebtoken';
 
-const tokenPrivateKey = process.env.JWT_TOKEN_PRIVATE_KEY;
-const refreshTokenPrivateKey = process.env.JWT_REFRESH_TOKEN_PRIVATE_KEY;
+const tokenPrivateKey = String(process.env.JWT_TOKEN_PRIVATE_KEY);
+const refreshTokenPrivateKey = String(process.env.JWT_REFRESH_TOKEN_PRIVATE_KEY);
 
 const options = { expiresIn: '30 minutes' };
 const refreshOptions = { expiresIn: '30 days' };

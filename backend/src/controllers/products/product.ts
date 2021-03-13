@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import ProductFilter from './filter';
-import JSONdb from '../../../products.json';
+import JSONdb from '../../products.json';
 import getPage from '../../utils/getPage';
 import db from '../../database/connection';
 
