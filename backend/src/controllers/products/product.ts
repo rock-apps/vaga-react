@@ -17,7 +17,7 @@ class Product {
     const { query, params } = req;
     const { filter } = params;
 
-    if (!('value' in query) || !(filter in ProductFilter))
+    if (!(filter in ProductFilter))
       return res.jsonBadRequest({ message: 'Filtro inválido' });
 
     try {
