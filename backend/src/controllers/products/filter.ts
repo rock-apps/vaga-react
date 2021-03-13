@@ -10,8 +10,10 @@ class Filter {
       .avg('rate');
 
     return {
-      product: JSONdb.products[id],
-      rating: avg['avg(`rate`)'] ?? 0,
+      product: {
+		  ...JSONdb.products[id],
+		  rating: avg['avg(`rate`)'] ?? 0,
+	  },
     };
   }
 
