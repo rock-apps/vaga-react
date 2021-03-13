@@ -5,13 +5,19 @@
   "main": "server.js",
   "repository": "https://github.com/Nadno/vaga-react",
   "scripts": {
+    "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "build": "babel src/ --out-dir dist --copy-files --extensions .ts",
     "knex:migrate": "knex --knexfile knexfile.ts migrate:latest"
   },
   "author": "Nadno",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
     "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
