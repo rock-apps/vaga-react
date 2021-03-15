@@ -2,24 +2,33 @@ import JSONdb from '../../products.json';
 import db from '../../database/connection';
 
 class Filter {
-  public async id(product_id: string): Promise<object> {
-    const id = Number(product_id) - 1;
-
+  public async rate(product_id: string): Promise<{ rating: number }> {
     const [avg] = await db('rating')
       .where('rating.product_id', '=', product_id)
       .avg('rate');
 
     return {
+      rating: avg['avg(`rate`)'] ?? 0,
+    };
+  }
+
+  public async id(product_id: string): Promise<object> {
+    const id = Number(product_id) - 1;
+    const { rating } = await this.rate(product_id);
+
+    return {
       product: {
-		  ...JSONdb.products[id],
-		  rating: avg['avg(`rate`)'] ?? 0,
-	  },
+        ...JSONdb.products[id],
+        rating,
+      },
     };
   }
 
   public name(product_name: string): object {
     return {
-      products: JSONdb.products.filter(({ title }) => ~title.indexOf(product_name)),
+      products: JSONdb.products.filter(
+        ({ title }) => ~title.indexOf(product_name)
+      ),
     };
   }
 
