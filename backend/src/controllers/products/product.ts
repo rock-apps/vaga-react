@@ -6,6 +6,13 @@ import getPage from '../../utils/getPage';
 import db from '../../database/connection';
 
 const ITEMS_FOR_PAGE = 5;
+const COMMENTS_SELECT = [
+	'rating.comment',
+    'rating.rate',
+    'rating.id',
+    'users.name',
+    'users.avatar'
+];
 
 class Product {
   public index(req: Request, res: Response): Response {
@@ -21,8 +28,7 @@ class Product {
       return res.jsonBadRequest({ message: 'Filtro inválido' });
 
     try {
-      const filterHandler = ProductFilter[filter];
-      return res.jsonOk(await filterHandler(query.value));
+      return res.jsonOk(await ProductFilter[filter](query.value));
     } catch (err) {
       return res.jsonServerError();
     }
@@ -44,16 +50,14 @@ class Product {
           message: 'Não foi possível criar um comentário',
         });
 
-      {
-        const [comment] = await db('rating')
-          .where('rating.id', '=', ratingId)
-          .join('users', 'rating.user_id', '=', user_id)
-          .select('rating.*', 'users.name', 'users.avatar');
+      const [createdComment] = await db('rating')
+        .join('users', 'users.id', '=', user_id)
+        .where('rating.id', '=', ratingId)
+        .select(COMMENTS_SELECT);
 
-        return res.jsonOk({ comment });
-      }
-    } catch {
-      return res.jsonServerError();
+      return res.jsonOk({ comment: createdComment });
+    } catch (error) {
+      return res.jsonServerError({ error });
     }
   }
 
@@ -61,27 +65,30 @@ class Product {
     const { product_id } = req.params;
     const { page = 1 } = req.query;
 
-    if (!product_id) return res.jsonBadRequest({ message: 'Product id deve ser um valor válido!' });
+    if (!product_id)
+      return res.jsonBadRequest({
+        message: 'Product id deve ser um valor válido!',
+      });
 
     try {
       const comments = await db('rating')
         .where('rating.product_id', '=', product_id)
-        .join('users', 'rating.user_id', '=', 'users.id')
-        .select('rating.*', 'users.name', 'users.avatar')
+        .join('users', 'users.id', '=', 'rating.user_id')
+        .select(COMMENTS_SELECT)
         .limit(ITEMS_FOR_PAGE)
         .offset((Number(page) - 1) * ITEMS_FOR_PAGE);
 
-        if (Number(page) == 1) {
-          const [count] = await db('rating')
-            .where('rating.product_id', '=', product_id)
-            .count();
-          const quantity = Number(count['count(*)']) ?? ITEMS_FOR_PAGE;
-          const pages = Math.ceil(quantity / ITEMS_FOR_PAGE);
+      if (Number(page) == 1) {
+        const [count] = await db('rating')
+          .where('rating.product_id', '=', product_id)
+          .count();
+        const quantity = Number(count['count(*)']) ?? ITEMS_FOR_PAGE;
+        const pages = Math.ceil(quantity / ITEMS_FOR_PAGE);
 
-          return res.jsonOk({ comments, pages });
-        }
+        return res.jsonOk({ comments, pages });
+      }
 
-      return res.jsonOk({ comments })
+      return res.jsonOk({ comments });
     } catch {
       return res.jsonServerError();
     }
