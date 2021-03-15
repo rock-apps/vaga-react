@@ -141,13 +141,13 @@ class User {
 
   public async refresh(req: Request, res: Response): Promise<Response> {
     const token = getTokenFromHeaders(req.headers);
-    if (token != null) res.jsonUnauthorized({ message: 'Token inválido' });
-
+    if (token == null) return res.jsonUnauthorized({ message: 'Token inválido' });
+	
     try {
       const decoded = verifyRefreshJwt(token);
-
+	
       const [account] = await db('users')
-        .select('*')
+        .select('users.id', 'users.name', 'users.avatar')
         .where('id', '=', decoded.id);
 
       if (!account) return res.jsonUnauthorized();
