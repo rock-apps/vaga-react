@@ -22,9 +22,9 @@ class App {
     const { app } = this;
 
     app.use(cors());
-    app.use(express.json());
     app.use(response);
-    app.use(checkJwt);
+	  app.use(checkJwt);
+    app.use(express.json());
   }
 
   private routes(): void {
